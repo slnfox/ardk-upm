@@ -1,4 +1,6 @@
 # ⚠️⚠️⚠️ Ugly fix for Unity 6000 (BRP/URP) + AR Foundation 6↑
+Find the official package here: https://github.com/niantic-lightship/ardk-upm
+
 
 ## Name
 ardk-upm
