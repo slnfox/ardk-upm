@@ -159,7 +159,7 @@ namespace Niantic.Lightship.AR.Occlusion
             if (cam == _camera)
             {
                 // Configure the render pass
-                _renderPass.Setup(Material, GpuTexture);
+                _renderPass.Setup(Material, GpuTextureHandle);
 
                 // Enqueue the render pass
                 cam.GetUniversalAdditionalCameraData().scriptableRenderer.EnqueuePass(_renderPass);
