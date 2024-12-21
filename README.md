@@ -1,3 +1,5 @@
+# ⚠️⚠️⚠️ Ugly fix for Unity 6000 (BRP/URP) + AR Foundation 6↑
+
 ## Name
 ardk-upm
 
