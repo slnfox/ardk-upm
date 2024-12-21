@@ -88,8 +88,8 @@ namespace Niantic.Lightship.AR.Simulation
         {
             if (!s_instance)
             {
-                SimulationCamera.GetOrCreateSimulationCamera();
-                var xrSimulationCamera = GameObject.Find("SimulationCamera");
+                var simCameraPoseProvider = SimulationCameraPoseProvider.GetOrCreateSimulationCameraPoseProvider();
+                var xrSimulationCamera = simCameraPoseProvider.gameObject;
 
                 s_instance = xrSimulationCamera.AddComponent<LightshipSimulationDevice>();
 

@@ -14,7 +14,7 @@ namespace Niantic.Lightship.AR.Occlusion
     internal sealed class OffScreenBlitPass : FullScreenBlitPass
     {
         // The target render texture
-        private RenderTexture _target;
+        private RTHandle _target;
 
         public OffScreenBlitPass(string name, RenderPassEvent renderPassEvent)
             : base(name, renderPassEvent) { }
@@ -24,7 +24,7 @@ namespace Niantic.Lightship.AR.Occlusion
         /// </summary>
         /// <param name="material">The material used to render the image.</param>
         /// <param name="target">The target to render the image to.</param>
-        public void Setup(Material material, RenderTexture target)
+        public void Setup(Material material, RTHandle target)
         {
             SetMaterial(material);
             _target = target;

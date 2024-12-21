@@ -33,7 +33,9 @@ namespace Niantic.Lightship.AR.Occlusion
         /// <summary>
         /// The GPU texture containing depth values of the fused mesh.
         /// </summary>
-        internal RenderTexture GpuTexture { get; private set; }
+        internal RenderTextureDescriptor GpuTextureDescriptor;
+        internal RTHandle GpuTextureHandle;
+        internal RenderTexture GpuTexture { get {return GpuTextureHandle?.rt;} }
 
         // Resources
         private Camera _camera;
@@ -96,12 +98,10 @@ namespace Niantic.Lightship.AR.Occlusion
             cameraTransform.localScale = Vector3.one;
 
             // Allocate GPU texture
-            GpuTexture = new RenderTexture(1024, 1024, 16, RenderTextureFormat.RFloat)
-            {
-                filterMode = FilterMode.Bilinear, wrapMode = TextureWrapMode.Clamp
-            };
+            GpuTextureDescriptor = new RenderTextureDescriptor(1024, 1024, RenderTextureFormat.RFloat, 16);
+            RenderingUtils.ReAllocateIfNeeded(ref GpuTextureHandle, GpuTextureDescriptor);
 
-            GpuTexture.Create();
+            // GpuTexture.Create();
 
             // Allocate a camera
             _camera = gameObject.AddComponent<Camera>();
@@ -122,16 +122,16 @@ namespace Niantic.Lightship.AR.Occlusion
                 Destroy(_internalMaterial);
             }
 
-            if (GpuTexture != null)
+            if (GpuTextureHandle != null)
             {
-                Destroy(GpuTexture);
+                GpuTextureHandle?.Release();
             }
         }
 
 #if !MODULE_URP_ENABLED
         private void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            Graphics.Blit(null, GpuTexture, Material);
+            Graphics.Blit(null, GpuTextureHandle.rt, Material);
         }
 #else
         private OffScreenBlitPass _renderPass;
